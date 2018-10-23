@@ -1,0 +1,13 @@
+#home-container > header{
+	padding: 5px 0px;
+	background-color: #333;
+}
+
+.main-view__logo{
+	width: 50px;
+}
+
+.home-view{
+	text-align: left;
+	margin-top: 10px;
+}
