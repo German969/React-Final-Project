@@ -90,7 +90,7 @@ class HomeView extends Component {
                             name={item.name}
                             artist={item.artists[0].name}
                             album={item.album.name}
-                            logo={item.album.images[0].url}
+                            logo={item.album.images[0] ? item.album.images[0].url : "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"}
                           />
 
                         )} 

@@ -20,8 +20,8 @@ class FavTrack extends React.Component {
         	</div>
         	<div className="card-block px-2 albumCover" style={{display: 'inline-block'}} >
             	<h4 className="card-title albumTitle">{this.state.name}</h4>
-           		<p className="card-text albumYear">{this.state.artist}</p>
-           		<p className="card-text albumYear">{this.state.album}</p>
+           		<p className="card-text albumYear">Artist: {this.state.artist}</p>
+           		<p className="card-text albumYear">Album: {this.state.album}</p>
         	</div>
         
     	</div>
