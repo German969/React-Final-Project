@@ -23,6 +23,8 @@ class HomeView extends Component {
       const queryString = require('query-string');
       var parsed = queryString.parse(props.location.hash);
 
+      console.log(parsed);
+
       this.token = parsed.access_token;
       this.state = {
         data : [],
@@ -87,6 +89,7 @@ class HomeView extends Component {
                       {this.state.data.map((item,index) => 
 
                           <FavTrack 
+                            key={index}
                             name={item.name}
                             artist={item.artists[0].name}
                             album={item.album.name}

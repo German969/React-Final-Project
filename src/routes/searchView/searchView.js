@@ -119,7 +119,7 @@ class SearchView extends Component {
 
                     <nav aria-label="breadcrumb">
   						<ol className="breadcrumb">
-    						<li className="breadcrumb-item"><Link to="/callback">Home</Link></li>
+    						<li className="breadcrumb-item"><Link to={{ pathname: '/callback/', search: '#access_token='+this.token}}>Home</Link></li>
     						<li className="breadcrumb-item active" aria-current="page">Search</li>
   						</ol>
 					</nav>

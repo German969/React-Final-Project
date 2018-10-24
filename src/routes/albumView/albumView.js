@@ -136,7 +136,7 @@ class AlbumView extends React.Component {
 
                     <nav aria-label="breadcrumb">
                       <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><Link to="/callback">Home</Link></li>
+                        <li className="breadcrumb-item"><Link to={{ pathname: '/callback', hash: 'access_token='+this.token}}>Home</Link></li>
                         <li className="breadcrumb-item"><Link to={{ pathname: '/search', search: '?query='+this.state.query+'&token='+this.token }}>Search</Link></li>
                         <li className="breadcrumb-item"><Link to={{ pathname: '/artist', state: { name: this.state.artist, id: this.state.a_id, logo:this.state.a_logo, genres: this.state.a_genres, query:this.state.query, token: this.token} }}>{this.state.artist}</Link></li>
                         <li className="breadcrumb-item active" aria-current="page">{this.state.name}</li>
@@ -144,7 +144,7 @@ class AlbumView extends React.Component {
                     </nav>
 
                     <ul className="list-group list-group-flush">
-  						<li id="tracklist-title" className="list-group-item">Lista de canciones</li>
+  						<li id="tracklist-title" className="list-group-item">Tracklist</li>
   						{
   							tracks.map((item,index)=>
                                   <Track

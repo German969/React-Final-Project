@@ -75,7 +75,7 @@ class ArtistView extends React.Component {
       
   }
   showSearch(e){
-    if(this.state.dropClass == 'not-show'){
+    if(this.state.dropClass === 'not-show'){
       this.setState({'dropClass':'show'});
     }else{
       this.setState({'dropClass':'not-show'});
@@ -142,7 +142,7 @@ class ArtistView extends React.Component {
 
                     <nav aria-label="breadcrumb">
                       <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><Link to="/callback">Home</Link></li>
+                        <li className="breadcrumb-item"><Link to={{ pathname: '/callback', hash: '#access_token='+this.token}}>Home</Link></li>
                         <li className="breadcrumb-item"><Link to={{ pathname: '/search', search: '?query='+this.state.query+'&token='+this.token }}>Search</Link></li>
                         <li className="breadcrumb-item active" aria-current="page">{this.state.name}</li>
                       </ol>

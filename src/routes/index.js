@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import HomeView from './homeView/homeView';
-//import AboutView from './aboutView/aboutView';
 import LoginView from './loginView/loginView';
 import SearchView from './searchView/searchView';
 import ArtistView from './artistView/artistView';
