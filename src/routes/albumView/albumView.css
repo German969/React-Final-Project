@@ -1,0 +1,9 @@
+#tracklist-title{
+	border: 0px;
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+#tracklist-title:hover{
+	z-index: 0;
+}

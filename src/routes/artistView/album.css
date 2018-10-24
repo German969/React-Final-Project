@@ -1,0 +1,11 @@
+.albumTitle{
+	max-width: 20rem;
+}
+
+.albumCover{
+	vertical-align: top;
+}
+
+.albumYear{
+	margin-bottom: 0px;
+}

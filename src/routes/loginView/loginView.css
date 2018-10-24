@@ -1,10 +1,10 @@
 #home-container > header{
-	padding: 5px 0px;
+	padding: 5px 5px;
 	background-color: #333;
 }
 
 .main-view__logo{
-	width: 50px;
+	width: 40px;
 }
 
 .home-view{

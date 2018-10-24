@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import logo from '../../assets/logo.svg';
 import './homeView.css';
 import search from '../../assets/search.svg';
+import FavTrack from './favTrack';
 //import axios from 'axios'
-import {  withRouter } from 'react-router-dom';
+//import {  withRouter } from 'react-router-dom';
 
 class HomeView extends Component {
 	constructor (props) {
@@ -25,7 +26,9 @@ class HomeView extends Component {
         data : null
       }
 
+      this.processFavs();
 
+      console.log(Object.keys(localStorage));
       
   	}
 
@@ -46,6 +49,14 @@ class HomeView extends Component {
             pathname: '/search',
             search: '?query='+q+'&token='+this.token
       })
+    }
+
+    processFavs(){
+      let keys = Object.keys(localStorage);
+      if(keys.length > 0){
+        console.log('ok');
+      };
+
     }
 
     render() {

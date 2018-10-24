@@ -1,0 +1,49 @@
+#artistHeader{
+	text-align: left;
+}
+
+.fontAwesome {
+  font-family: 'Helvetica', FontAwesome, sans-serif;
+}
+
+.artistName{
+	
+}
+
+.artistHeader{
+	margin: 10px 0px;
+
+}
+
+.artistImage{
+	margin-right: 10px;
+}
+
+#searchDropdown{
+	padding: 5px 10px 1px 10px;
+	background-color: #343a40;
+}
+
+.not-show{
+	display: none;
+}
+.show{
+	display: inherit;
+}
+
+#searchDropIcon{
+	display: none;
+}
+
+.search_white{
+	background-color: white;
+}
+
+@media only screen and (max-width: 600px) {
+#searchDropIcon{
+	display: inherit;
+}
+#searchHeader{
+	display: none;
+}
+}

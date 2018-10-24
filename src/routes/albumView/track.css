@@ -1,0 +1,22 @@
+.star-icon{
+	float: right;
+	line-height: 1.1;
+	font-size: 1.4rem;
+	cursor: pointer;
+}
+
+.star-icon:hover{
+	font-weight: 900;
+}
+
+.star-icon-fav{
+	float: right;
+	line-height: 1.1;
+	font-size: 1.4rem;
+	cursor: pointer;
+	font-weight: 900;
+}
+
+.star-icon-fav:hover{
+	font-weight: 400;
+}

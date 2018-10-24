@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import logo from '../../assets/logo.svg';
 import search from '../../assets/search.svg';
 import Artist from './artist';
+import { Link } from 'react-router-dom'
+import './searchView.css';
+
 
 class SearchView extends Component {
   constructor(props){
@@ -9,11 +12,11 @@ class SearchView extends Component {
   	const queryString = require('query-string');
     let parsed = queryString.parse(props.location.search);
 
- 	//console.log(parsed);
+ 	  console.log(parsed);
 
     let q = parsed.query;
 
-    //console.log(q);
+    console.log(q);
 
     this.token = parsed.token;
 
@@ -27,17 +30,40 @@ class SearchView extends Component {
     this.performSearch2(q);
   }
   handleEnter(e){
-  	console.log('Enter');
+  	if(e.key === 'Enter'){
+  		console.log(e.target.value);
+        this.performSearch2(e.target.value);
+
+        var str = e.target.value;
+
+        let q = str.replace(" ","%20");
+
+      	this.props.history.push({
+            pathname: '/search',
+            search: '?query='+q+'&token='+this.token
+      	});
+
+      }
   }
   handleClick(e){
-  	console.log('Click');
+  	console.log(this.refs.searchbox);
+  	var sb = this.refs.searchbox;
+    this.performSearch2(sb.value);
+    var str = sb.value;
+
+    let q = str.replace(" ","%20");
+
+      this.props.history.push({
+            pathname: '/search',
+            search: '?query='+q+'&token='+this.token
+      })
   }
 
   performSearch2(str){
 
       let q = str.replace(" ","%20");
 
-      let url = "https://api.spotify.com/v1/search?q="+q+"&type=artist"
+      let url = "https://api.spotify.com/v1/search?q="+q+"&type=artist";
 
       fetch(url, { 
           method: 'get', 
@@ -55,7 +81,20 @@ class SearchView extends Component {
   	var artists = '';
 
   	if(items){
-  		artists = <Items items={items} />;
+      console.log(this.state.q);
+  		artists = <div id="artists-container">
+  					{items.map((item,index) =>
+         				<Artist
+          					name={item.name}
+          					logo={item.images[0] ? item.images[0].url : "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"}
+          					key={item.id}
+          					id={item.id}
+                    genres={item.genres.toString()}
+                    token={this.token}
+
+                    query={this.state.query}
+       		 		/>)}
+  				</div>;
   	};
 
     return(
@@ -78,6 +117,13 @@ class SearchView extends Component {
                      <input ref="searchbox" type="text" className="form-control" placeholder="Search for your favourite artists here" aria-label="Example text with button addon" aria-describedby="button-addon1" onKeyPress={this.handleEnter.bind(this)} />
                     </div>
 
+                    <nav aria-label="breadcrumb">
+  						<ol className="breadcrumb">
+    						<li className="breadcrumb-item"><Link to="/callback">Home</Link></li>
+    						<li className="breadcrumb-item active" aria-current="page">Search</li>
+  						</ol>
+					</nav>
+
                     {artists}
 
                     
@@ -85,25 +131,6 @@ class SearchView extends Component {
             	</article>
             </div>
     )
-  }
-}
-
-class Items extends React.Component {
-	constructor(props){
-		super();
-		this.items = props.items;
-	}
-  render(){
-  	return(
-    <div>
-  		{this.items.map((item,index) =>
-         	<Artist
-          		name={item.name}
-          		logo={item.images[0].url}
-          		key={item.id}
-       		 />)}
-  	</div>
-  	)
   }
 }
 
