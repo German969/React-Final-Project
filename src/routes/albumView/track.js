@@ -20,7 +20,7 @@ class Track extends React.Component {
     let newState = '';
     if(localStorage.hasOwnProperty(this.state.id)){
 
-      if(localStorage.getItem(this.state.id) == 'true'){
+      if(localStorage.getItem(this.state.id) === 'true'){
 
         localStorage.setItem(e.target.id, 'false');
         newState = 'far fa-star star-icon';
@@ -45,7 +45,7 @@ class Track extends React.Component {
 
     var className = '';
 
-    if(localStorage.hasOwnProperty(this.state.id) && localStorage.getItem(this.state.id) == 'true'){
+    if(localStorage.hasOwnProperty(this.state.id) && localStorage.getItem(this.state.id) === 'true'){
       className = 'far fa-star star-icon-fav';
     }else{
       className = 'far fa-star star-icon';

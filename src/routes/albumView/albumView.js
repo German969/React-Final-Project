@@ -58,7 +58,7 @@ class AlbumView extends React.Component {
 
     }
   showSearch(e){
-    if(this.state.dropClass == 'not-show'){
+    if(this.state.dropClass === 'not-show'){
       this.setState({'dropClass':'show'});
     }else{
       this.setState({'dropClass':'not-show'});
@@ -67,7 +67,7 @@ class AlbumView extends React.Component {
   getTracks(id,token){
   	let url = "https://api.spotify.com/v1/albums/"+id+"/tracks";
 
-    let tracksData = [];
+    //let tracksData = [];
 
     fetch(url, { 
           method: 'get', 

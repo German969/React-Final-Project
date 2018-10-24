@@ -16,19 +16,21 @@ class HomeView extends Component {
     	this.response_type = 'token';
     	this.scope = 'user-read-private user-read-email';
 
-      console.log(props.location.pathname);
+      this.favs = null;
+
+      //console.log(props.location.pathname);
 
       const queryString = require('query-string');
       var parsed = queryString.parse(props.location.hash);
 
       this.token = parsed.access_token;
       this.state = {
-        data : null
+        data : [],
       }
 
       this.processFavs();
 
-      console.log(Object.keys(localStorage));
+      //console.log(Object.keys(localStorage));
       
   	}
 
@@ -53,13 +55,49 @@ class HomeView extends Component {
 
     processFavs(){
       let keys = Object.keys(localStorage);
-      if(keys.length > 0){
-        console.log('ok');
-      };
+      keys = keys.filter(item => localStorage.getItem(item) === 'true');
 
+      if(keys.length > 0){
+        console.log(keys.toString());
+
+        let url = "https://api.spotify.com/v1/tracks/?ids="+keys.toString();
+
+        console.log(url);
+
+        fetch(url, { 
+          method: 'get', 
+          headers: new Headers({
+              'Authorization': 'Bearer '+this.token, 
+          }), 
+        })
+        .then(response => response.json())
+        .then(data => this.setState({'data' : data.tracks}));
+      };
     }
 
     render() {
+
+      let favourites = '';
+
+      if(this.state.data.length > 0){
+        favourites = <div>
+          
+                      <h1>Favourite Songs</h1>
+
+                      {this.state.data.map((item,index) => 
+
+                          <FavTrack 
+                            name={item.name}
+                            artist={item.artists[0].name}
+                            album={item.album.name}
+                            logo={item.album.images[0].url}
+                          />
+
+                        )} 
+
+                     </div>
+      }
+
         return (
         	<div id="home-container">
         		<header>
@@ -81,6 +119,7 @@ class HomeView extends Component {
                      <input ref="searchbox" type="text" className="form-control" placeholder="Type the name of your favourite artist" aria-label="Example text with button addon" aria-describedby="button-addon1" onKeyPress={this.handleEnter.bind(this)} />
                     </div>
 
+                    {favourites}
                     
                 	</article>
             	</article>
