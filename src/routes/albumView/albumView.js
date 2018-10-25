@@ -26,9 +26,13 @@ class AlbumView extends React.Component {
     query: props.location.state.query,
 
     dropClass: 'not-show',
+
+    preview: 'hola',
+    show_preview: 'hide-player',
+
 		}
 
-		//console.log(props.location.state.id);
+		console.log(this.state.show_preview);
 
 		this.getTracks(props.location.state.id,props.location.state.token);
   }
@@ -77,6 +81,14 @@ class AlbumView extends React.Component {
       })
       .then(response => response.json())
       .then(data => this.setState({data : data}));
+  }
+  handler(e){
+    this.setState({preview: e.target.id});
+    this.setState({show_preview: 'show-player'});
+    this.refs.audio_player.load();
+    this.refs.audio_player.play();
+    //console.log(e.target.id);
+    //console.log(this.state.preview);
   }
   render(){
   	let data = this.state.data;
@@ -152,17 +164,27 @@ class AlbumView extends React.Component {
                                     key={item.id}
                                     id={item.id}
                                     token={this.token}
+                                    preview={item.preview_url}
+
+                                    handler={this.handler.bind(this)}
                                   />
                               )
   						}
   						<li className="list-group-item"></li>
 					</ul>
-
-                    
                     
                   </article>
 
+                  <footer ref="player-fix" id="player-fix" className={this.state.show_preview} ></footer>   
+
               </article>
+
+              <footer id="player" ref="player" className={this.state.show_preview} >
+                    <audio id="audio_player" ref="audio_player" controls>
+                      <source src={this.state.preview} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                    </audio>
+                  </footer>
 
             </div>
     )

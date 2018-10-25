@@ -7,3 +7,30 @@
 #tracklist-title:hover{
 	z-index: 0;
 }
+
+audio{
+    z-index: 1;
+}
+
+#player{
+	background-color: #343a40;
+	padding: 10px 10px 5px 10px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	z-index: 1;
+	text-align: left;
+}
+
+#player-fix{
+	width: 100%;
+	height: 76px;
+}
+
+.hide-player{
+	display: none;
+}
+
+.show-player{
+	display: block;
+}

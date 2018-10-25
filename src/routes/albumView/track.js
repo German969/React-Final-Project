@@ -10,9 +10,12 @@ class Track extends React.Component {
   	this.state = {
   	  name: props.name,
   	  id: props.id,
+      preview: props.preview,
 
       className: 'far fa-star star-icon',
   	}
+
+    //console.log(this.state.preview);
 
     //console.log(localStorage.getItem('1Y4HsZWu66hsDxGrOVgJqa'));
   }
@@ -52,7 +55,12 @@ class Track extends React.Component {
     }
 
     return(
-    	<li className="list-group-item">{this.state.name}<i id={this.state.id} className={className} onClick={this.addFav.bind(this)}></i></li>
+      
+    	<li id={this.state.preview} className="list-group-item" onClick={this.props.handler}>
+        {this.state.name} {this.state.preview}
+        <i id={this.state.id} className={className} onClick={this.addFav.bind(this)} title="Add/Remove Favourite"></i>
+      </li>
+      
     )
   }
 }
