@@ -57,7 +57,7 @@ class Track extends React.Component {
     return(
       
     	<li id={this.state.preview} className="list-group-item" onClick={this.props.handler}>
-        {this.state.name} {this.state.preview}
+        <i className="far fa-play-circle play-icon"></i>{this.state.name}
         <i id={this.state.id} className={className} onClick={this.addFav.bind(this)} title="Add/Remove Favourite"></i>
       </li>
       

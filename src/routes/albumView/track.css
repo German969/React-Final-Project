@@ -44,3 +44,14 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.play-icon{
+    line-height: 1.1;
+    font-size: 1.4rem;
+    float: left;
+    margin-right: 5px;
+}
+
+.play-icon:hover{
+    font-weight: 900;
+}
