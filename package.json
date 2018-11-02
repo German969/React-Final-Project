@@ -17,7 +17,9 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-localstorage": "^0.3.1",
+    "react-redux": "^5.1.0",
     "react-router-dom": "^4.0.0",
+    "redux": "^4.0.1",
     "request": "~2.83.0"
   },
   "scripts": {
