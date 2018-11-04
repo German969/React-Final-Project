@@ -3,39 +3,36 @@ import logo from '../../assets/logo.svg';
 import './homeView.css';
 import search from '../../assets/search.svg';
 import FavTrack from './favTrack';
-import store from '../../store.js';
+//import axios from 'axios'
+//import {  withRouter } from 'react-router-dom';
 
 class HomeView extends Component {
 	constructor (props) {
     	super();
+    	//this.handleClick = this.handleClick.bind(this);
     	this.client_id = '12ca3037b7724515af3e606f1e211235';
+    	//this.client_secret = 'd55c3c27c9704252a46228c0b0ba0d7c';
     	this.redirect_uri = 'http:%2F%2Flocalhost%3A3000%2Fcallback';
     	this.response_type = 'token';
     	this.scope = 'user-read-private user-read-email';
 
       this.favs = null;
-      
-      this.state = {
-        favs: [],
-        token: null
-      }
 
-      store.subscribe(() => {
-        this.setState({
-          favs: store.getState().favs,
-          token: store.getState().token
-        });
-      });
+      //console.log(props.location.pathname);
 
       const queryString = require('query-string');
       var parsed = queryString.parse(props.location.hash);
 
-      store.dispatch({
-        type: 'TOKEN',
-        token: parsed.access_token
-      });
+      console.log(parsed);
 
-      this.processFavs2();
+      this.token = parsed.access_token;
+      this.state = {
+        data : [],
+      }
+
+      this.processFavs();
+
+      //console.log(Object.keys(localStorage));
       
   	}
 
@@ -54,11 +51,11 @@ class HomeView extends Component {
 
       this.props.history.push({
             pathname: '/search',
-            search: '?query='+q+'&token='+this.state.token
+            search: '?query='+q+'&token='+this.token
       })
     }
 
-    /*processFavs(){
+    processFavs(){
       let keys = Object.keys(localStorage);
       keys = keys.filter(item => localStorage.getItem(item) === 'true');
 
@@ -78,43 +75,18 @@ class HomeView extends Component {
         .then(response => response.json())
         .then(data => this.setState({'data' : data.tracks}));
       };
-    }*/
-
-    processFavs2(){
-      let keys = Object.keys(localStorage);
-      keys = keys.filter(item => localStorage.getItem(item) === 'true');
-
-      if(keys.length > 0){
-        console.log(keys.toString());
-
-        let url = "https://api.spotify.com/v1/tracks/?ids="+keys.toString();
-
-        console.log(url);
-
-        fetch(url, { 
-          method: 'get', 
-          headers: new Headers({
-              'Authorization': 'Bearer '+this.state.token, 
-          }), 
-        })
-        .then(response => response.json())
-        .then(data => store.dispatch({
-          type: 'FAVS',
-          favs: data.tracks
-        }));
-      };
     }
 
     render() {
 
       let favourites = '';
 
-      if(this.state.favs.length > 0){
+      if(this.state.data.length > 0){
         favourites = <div>
           
                       <h1>Favourite Songs</h1>
 
-                      {this.state.favs.map((item,index) => 
+                      {this.state.data.map((item,index) => 
 
                           <FavTrack 
                             key={index}
