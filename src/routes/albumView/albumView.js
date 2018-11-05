@@ -4,6 +4,8 @@ import logo from '../../assets/logo.svg';
 import { Link } from 'react-router-dom';
 import Track from './track';
 import './albumView.css';
+import store from '../../store.js';
+import { setAlbum } from '../../actionCreators.js';
 import { connect } from 'react-redux';
 
 class AlbumView extends React.Component {
@@ -11,11 +13,10 @@ class AlbumView extends React.Component {
   	super();
 
   	this.state = {
-	  name: props.location.state.name,
-	  id: props.location.state.id,
-	  logo: props.location.state.logo,
+
+    album: props.location.state.album,
+
     data: null,
-    release_date: props.location.state.release_date,
 
     dropClass: 'not-show',
 
@@ -23,11 +24,13 @@ class AlbumView extends React.Component {
     show_preview: 'hide-player',
 
 		}
+
+    store.dispatch(setAlbum(this.state.album));
 		
   }
 
   componentDidMount(){
-    this.getTracks(this.state.id,this.props.token);
+    this.getTracks(this.state.album.id,this.props.token);
   }
 
   handleEnter(e){
@@ -80,8 +83,6 @@ class AlbumView extends React.Component {
     this.setState({show_preview: 'show-player'});
     this.refs.audio_player.load();
     this.refs.audio_player.play();
-    //console.log(e.target.id);
-    //console.log(this.state.preview);
   }
   render(){
   	let data = this.state.data;
@@ -129,10 +130,10 @@ class AlbumView extends React.Component {
             
               <article className="home-view container">
                   <header className="artistHeader">
-                    <img className="artistImage" src={this.state.logo} alt="Artist" style={{width: '10rem', height: 'auto'}}/>
+                    <img className="artistImage" src={this.state.album.logo} alt="Artist" style={{width: '10rem', height: 'auto'}}/>
                     <div style={{display: 'inline-block'}}>
-                      <h1 className="artistName">{this.state.name}</h1>  
-                      <h5>{this.props.artist.name} - {this.state.release_date.split('-')[0]}</h5>
+                      <h1 className="artistName">{this.state.album.name}</h1>  
+                      <h5>{this.props.artist.name} - {this.state.album.release_date.split('-')[0]}</h5>
                     </div>
                     
                   </header>
@@ -144,7 +145,7 @@ class AlbumView extends React.Component {
                         <li className="breadcrumb-item"><Link to={{ pathname: '/callback', hash: 'access_token='+this.props.token}}>Home</Link></li>
                         <li className="breadcrumb-item"><Link to={{ pathname: '/search', search: '?query='+this.props.query }}>Search</Link></li>
                         <li className="breadcrumb-item"><Link to={{ pathname: '/artist', state: { artist: this.props.artist } }}>{this.props.artist.name}</Link></li>
-                        <li className="breadcrumb-item active" aria-current="page">{this.state.name}</li>
+                        <li className="breadcrumb-item active" aria-current="page">{this.state.album.name}</li>
                       </ol>
                     </nav>
 
@@ -187,7 +188,8 @@ const mapStateToProps = state => {
   return {
     token: state.token,
     query: state.query,
-    artist: state.artist
+    artist: state.artist,
+    album: state.album
   };
 };
 

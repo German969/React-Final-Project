@@ -6,11 +6,14 @@ class Album extends Component {
   constructor(props){
   	super();
   	this.state = {
-  		name: props.name,
-  		logo: props.logo,
-  		id: props.id,
-      release_date: props.release_date.split("-")[0],
-      artist: props.artist,
+  		artist: props.artist,
+
+      album: {
+        name: props.name,
+        logo: props.logo,
+        id: props.id,
+        release_date: props.release_date.split("-")[0]
+      }
   	}   
   }
 
@@ -19,11 +22,8 @@ class Album extends Component {
 
 
       <Link to={{ pathname: '/album', state: { 
-                                                name: this.state.name, 
-                                                id: this.state.id, 
-                                                logo:this.state.logo, 
-                                                release_date:this.state.release_date, 
-                                                artist:this.state.artist
+                                                artist:this.state.artist,
+                                                album: this.state.album
                                                 } }}>
 	   <div className="card flex-row flex-wrap" style={{maxWidth: '30rem', display: 'inline-block', margin: '5px', width: '100%'}} >
         <div className="card-header border-0" style={{display: 'inline-block'}} >

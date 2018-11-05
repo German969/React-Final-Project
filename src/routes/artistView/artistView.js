@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './artistView.css';
 import Album from './album';
 import store from '../../store.js';
-import { setArtist } from '../../actionCreators.js';
+import { setAlbum } from '../../actionCreators.js';
 import { connect } from 'react-redux';
 
 class ArtistView extends React.Component {

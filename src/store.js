@@ -20,11 +20,16 @@ const reducer = (state,action) => {
 	} else if (action.type == 'SET_ARTIST') {
 		return {
 			...state,
-		artist: action.artist
+			artist: action.artist
+		}
+	} else if (action.type == 'SET_ALBUM') {
+		return {
+			...state,
+			album: album
 		}
 	}
 
 	return state;
 }
 
-export default createStore(reducer, { token: null, query: null, artistsList: [], artist: null });
+export default createStore(reducer, { token: null, query: null, artistsList: [], artist: null, album: null });

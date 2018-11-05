@@ -23,7 +23,6 @@ class SearchView extends Component {
         query : q,
         data: null,
       }
-
     
   }
 

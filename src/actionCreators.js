@@ -24,6 +24,13 @@ const setArtist = artist => {
 		type: 'SET_ARTIST',
 		artist: artist
 	}
+};
+
+const setAlbum = album => {
+	return {
+		type: 'SET_ALBUM',
+		album: album
+	}
 }
 
-export { setToken, setQuery, artistsList, setArtist };
+export { setToken, setQuery, artistsList, setArtist, setAlbum };
