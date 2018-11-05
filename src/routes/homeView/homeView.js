@@ -4,7 +4,7 @@ import './homeView.css';
 import search from '../../assets/search.svg';
 import FavTrack from './favTrack';
 import store from '../../store.js';
-import { setToken } from '../../actionCreators.js';
+import { setToken, setQuery } from '../../actionCreators.js';
 import { connect } from 'react-redux';
 
 class HomeView extends Component {
@@ -57,9 +57,11 @@ class HomeView extends Component {
     performSearch(str){
       let q = str.replace(" ","%20");
 
+      store.dispatch(setQuery(q));
+
       this.props.history.push({
-            pathname: '/search',
-            search: '?query='+q
+            pathname: '/search'
+            //search: '?query='+q
       })
     }
 
@@ -141,7 +143,8 @@ class HomeView extends Component {
 
 const mapStateToProps = state => {
   return {
-    token: state.token
+    token: state.token,
+    query: state.query
   };
 };
 

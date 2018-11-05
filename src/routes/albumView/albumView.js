@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Track from './track';
 import './albumView.css';
 import store from '../../store.js';
-import { setAlbum } from '../../actionCreators.js';
+import { setAlbum, setQuery } from '../../actionCreators.js';
 import { connect } from 'react-redux';
 
 class AlbumView extends React.Component {
@@ -25,7 +25,7 @@ class AlbumView extends React.Component {
 
 		}
 
-    store.dispatch(setAlbum(this.state.album));
+    //store.dispatch(setAlbum(this.state.album));
 		
   }
 
@@ -51,9 +51,11 @@ class AlbumView extends React.Component {
 
       let q = str.replace(" ","%20");
 
+      store.dispatch(setQuery(q));
+
       this.props.history.push({
-            pathname: '/search',
-            search: '?query='+q
+            pathname: '/search'
+            //search: '?query='+q
       })
 
     }
@@ -189,7 +191,8 @@ const mapStateToProps = state => {
     token: state.token,
     query: state.query,
     artist: state.artist,
-    album: state.album
+    query: state.query
+    //album: state.album
   };
 };
 

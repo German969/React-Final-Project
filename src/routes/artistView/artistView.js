@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './artistView.css';
 import Album from './album';
 import store from '../../store.js';
-import { setAlbum } from '../../actionCreators.js';
+import { setArtist, setQuery } from '../../actionCreators.js';
 import { connect } from 'react-redux';
 
 class ArtistView extends React.Component {
@@ -57,9 +57,11 @@ class ArtistView extends React.Component {
 
       let q = str.replace(" ","%20");
 
+      store.dispatch(setQuery(q));
+
       this.props.history.push({
-            pathname: '/search',
-            search: '?query='+q
+            pathname: '/search'
+            //search: '?query='+q
       })
 
     }
@@ -93,6 +95,7 @@ class ArtistView extends React.Component {
 
     if(data){
       albums = data.items;
+      console.log(albums);
     };
 
 

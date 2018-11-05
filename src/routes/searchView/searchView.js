@@ -13,11 +13,17 @@ class SearchView extends Component {
   constructor(props){
   	super();
   	const queryString = require('query-string');
-    let parsed = queryString.parse(props.location.search);
 
-    let q = parsed.query;
+    let q = '';
 
-    store.dispatch(setQuery(q));
+    if(props.location.search){
+      let parsed = queryString.parse(props.location.search);
+
+      q = parsed.query;
+
+      store.dispatch(setQuery(q));
+    };
+    
 
     this.state = {
         query : q,
@@ -27,7 +33,10 @@ class SearchView extends Component {
   }
 
   componentDidMount(){
-    this.performSearch2(this.state.query);
+    this.setState({
+      query: this.props.query
+    });
+    this.performSearch2(this.props.query);
   }
 
   handleEnter(e){
@@ -38,9 +47,11 @@ class SearchView extends Component {
 
         let q = str.replace(" ","%20");
 
+        store.dispatch(setQuery(q));
+
       	this.props.history.push({
-            pathname: '/search',
-            search: '?query='+q
+            pathname: '/search'
+            //search: '?query='+q
       	});
 
       }
@@ -107,7 +118,7 @@ class SearchView extends Component {
                 		<h1>Artists</h1>
                 	</header>
                 	<article>
-                		<p>You are currently searching: "{this.state.query}"</p>
+                		<p>You are currently searching: "{this.props.query}"</p>
                     <div className="input-group mb-3">
                      <div className="input-group-prepend">
                        <button className="btn btn-outline-secondary" type="button" id="button-addon1" onClick={this.handleClick.bind(this)}>

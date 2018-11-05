@@ -22,12 +22,12 @@ const reducer = (state,action) => {
 			...state,
 			artist: action.artist
 		}
-	} else if (action.type == 'SET_ALBUM') {
+	} /*else if (action.type == 'SET_ALBUM') {
 		return {
 			...state,
 			album: album
 		}
-	}
+	}*/
 
 	return state;
 }
