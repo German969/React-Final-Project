@@ -10,6 +10,20 @@ const setQuery = query => {
 		type: 'QUERY',
 		query: query
 	}
+};
+
+const artistsList = data => {
+	return {
+		type: 'ARTISTS_LIST',
+		artistsList: data
+	}
+};
+
+const setArtist = artist => {
+	return {
+		type: 'SET_ARTIST',
+		artist: artist
+	}
 }
 
-export { setToken, setQuery };
+export { setToken, setQuery, artistsList, setArtist };

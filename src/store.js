@@ -12,9 +12,19 @@ const reducer = (state,action) => {
 			...state,
 			query: action.query
 		}
+	} else if (action.type == 'ARTISTS_LIST') {
+		return {
+			...state,
+			artistsList: action.artistsList
+		}
+	} else if (action.type == 'SET_ARTIST') {
+		return {
+			...state,
+		artist: action.artist
+		}
 	}
 
 	return state;
 }
 
-export default createStore(reducer, { token: null, query: null });
+export default createStore(reducer, { token: null, query: null, artistsList: [], artist: null });

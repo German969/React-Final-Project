@@ -4,26 +4,38 @@ import logo from '../../assets/logo.svg';
 import { Link } from 'react-router-dom';
 import './artistView.css';
 import Album from './album';
+import store from '../../store.js';
+import { setArtist } from '../../actionCreators.js';
 import { connect } from 'react-redux';
 
 class ArtistView extends React.Component {
   constructor(props){
   	super();
 
+    let artist = props.location.state.artist;
+
 		this.state = {
-			name: props.location.state.name,
-			id: props.location.state.id,
-			logo: props.location.state.logo,
-      genres: props.location.state.genres,
+
+      artist: props.location.state.artist,
+
       data: null,
 
       dropClass: 'not-show',
-		}
+		
+    }
+
+    store.dispatch(setArtist(artist));
 
 	}
 
+  componentWillMount(){
+    console.log(store.getState().artist);
+    console.log(this.props.artist);
+  }
+
   componentDidMount(){
-    this.getAlbums(this.state.id,this.props.token);
+    console.log(this.props.artist);
+    this.getAlbums(this.state.artist.id,this.props.token);
   }
 
   handleClick(e){
@@ -124,10 +136,10 @@ class ArtistView extends React.Component {
             
               <article className="home-view container">
                   <header className="artistHeader">
-                    <img className="artistImage" src={this.state.logo} alt="Artist" style={{width: '10rem', height: 'auto'}}/>
+                    <img className="artistImage" src={this.state.artist.logo} alt="Artist" style={{width: '10rem', height: 'auto'}}/>
                     <div style={{display: 'inline-block'}}>
-                      <h1 className="artistName">{this.state.name}</h1>  
-                      <h5>{this.state.genres}</h5>
+                      <h1 className="artistName">{this.state.artist.name}</h1>  
+                      <h5>{this.state.artist.genres}</h5>
                     </div>
                     
                   </header>
@@ -138,7 +150,7 @@ class ArtistView extends React.Component {
                       <ol className="breadcrumb">
                         <li className="breadcrumb-item"><Link to={{ pathname: '/callback', hash: '#access_token='+this.props.token}}>Home</Link></li>
                         <li className="breadcrumb-item"><Link to={{ pathname: '/search', search: '?query='+this.props.query }}>Search</Link></li>
-                        <li className="breadcrumb-item active" aria-current="page">{this.state.name}</li>
+                        <li className="breadcrumb-item active" aria-current="page">{this.state.artist.name}</li>
                       </ol>
                     </nav>
 
@@ -149,11 +161,6 @@ class ArtistView extends React.Component {
                                     release_date={item.release_date}
                                     key={item.id}
                                     id={item.id}
-                                    artist={this.state.name}
-
-                                    a_id={this.state.id}
-                                    a_logo={this.state.logo}
-                                    a_genres={this.state.genres}
                                   />
                               )
                     }
@@ -170,7 +177,8 @@ class ArtistView extends React.Component {
 const mapStateToProps = state => {
   return {
     token: state.token,
-    query: state.query
+    query: state.query,
+    artist: state.artist
   };
 };
 

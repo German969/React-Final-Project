@@ -5,7 +5,7 @@ import Artist from './artist';
 import { Link } from 'react-router-dom'
 import './searchView.css';
 import store from '../../store.js';
-import { setQuery } from '../../actionCreators.js';
+import { setQuery, artistsList } from '../../actionCreators.js';
 import { connect } from 'react-redux';
 
 
@@ -73,7 +73,10 @@ class SearchView extends Component {
           }) 
       })
       .then(response => response.json())
-      .then(data => this.setState({ data : data.artists.items }));
+      .then(data => {
+        this.setState({ data : data.artists.items });
+        store.dispatch(artistsList(data));
+      });
 
     }
 
@@ -82,7 +85,6 @@ class SearchView extends Component {
   	var artists = '';
 
   	if(items){
-      //console.log(this.state.q);
   		artists = <div id="artists-container">
   					{items.map((item,index) =>
          				<Artist
@@ -136,7 +138,8 @@ class SearchView extends Component {
 const mapStateToProps = state => {
   return {
     token: state.token,
-    query: state.query
+    query: state.query,
+    artistsList: state.artistsList
   };
 };
 

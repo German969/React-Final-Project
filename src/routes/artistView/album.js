@@ -11,10 +11,6 @@ class Album extends Component {
   		id: props.id,
       release_date: props.release_date.split("-")[0],
       artist: props.artist,
-
-      a_id: props.a_id,
-      a_logo: props.a_logo,
-      a_genres: props.a_genres,
   	}   
   }
 
@@ -27,11 +23,7 @@ class Album extends Component {
                                                 id: this.state.id, 
                                                 logo:this.state.logo, 
                                                 release_date:this.state.release_date, 
-                                                artist:this.state.artist, 
-
-                                                a_id:this.state.a_id,
-                                                a_logo:this.state.a_logo,
-                                                a_genres:this.state.a_genres,
+                                                artist:this.state.artist
                                                 } }}>
 	   <div className="card flex-row flex-wrap" style={{maxWidth: '30rem', display: 'inline-block', margin: '5px', width: '100%'}} >
         <div className="card-header border-0" style={{display: 'inline-block'}} >
