@@ -102,7 +102,6 @@ class SearchView extends Component {
           					key={item.id}
           					id={item.id}
                     genres={item.genres.toString()}
-                    token={this.props.token}
 
                     query={this.state.query}
        		 		/>)}

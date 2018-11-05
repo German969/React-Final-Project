@@ -162,7 +162,6 @@ class ArtistView extends React.Component {
                                     release_date={item.release_date}
                                     key={item.id}
                                     id={item.id}
-                                    token={this.props.token}
                                     artist={this.state.name}
 
                                     a_id={this.state.id}
@@ -182,6 +181,7 @@ class ArtistView extends React.Component {
     )
   }
 }
+
 const mapStateToProps = state => {
   return {
     token: state.token

@@ -19,7 +19,7 @@ class Album extends Component {
 
       query: props.query,
   	}   
-    this.token = props.token;
+    //this.token = props.token;
   }
 
   render(){
@@ -38,7 +38,7 @@ class Album extends Component {
                                                 a_genres:this.state.a_genres,
 
                                                 query:this.state.query, 
-                                                token: this.token} }}>
+                                                } }}>
 	   <div className="card flex-row flex-wrap" style={{maxWidth: '30rem', display: 'inline-block', margin: '5px', width: '100%'}} >
         <div className="card-header border-0" style={{display: 'inline-block'}} >
             <img src={this.state.logo} alt="Album" style={{width: '5rem'}} />

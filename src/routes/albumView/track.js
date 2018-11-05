@@ -5,8 +5,6 @@ class Track extends React.Component {
   constructor(props){
   	super();
 
-  	this.token = props.token;
-
   	this.state = {
   	  name: props.name,
   	  id: props.id,
