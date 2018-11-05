@@ -4,6 +4,7 @@ import search from '../../assets/search.svg';
 import Artist from './artist';
 import { Link } from 'react-router-dom'
 import './searchView.css';
+import { connect } from 'react-redux';
 
 
 class SearchView extends Component {
@@ -12,35 +13,46 @@ class SearchView extends Component {
   	const queryString = require('query-string');
     let parsed = queryString.parse(props.location.search);
 
- 	  console.log(parsed);
+ 	  //console.log(parsed);
 
     let q = parsed.query;
 
-    console.log(q);
+    //console.log(q);
 
-    this.token = parsed.token;
-
-    //console.log(this.token);
+    //this.token = parsed.token;
 
     this.state = {
         query : q,
         data: null,
       }
 
-    this.performSearch2(q);
+    
   }
+
+  componentDidMount(){
+    //console.log('props.token');
+    //console.log(this.props.token);
+
+    this.performSearch2(this.state.query);
+  }
+
   handleEnter(e){
   	if(e.key === 'Enter'){
-  		console.log(e.target.value);
+  		  //console.log(e.target.value);
         this.performSearch2(e.target.value);
 
         var str = e.target.value;
 
         let q = str.replace(" ","%20");
 
+        /*console.log('props.token');
+        console.log(this.props.token);
+        console.log('this.token');
+        console.log(this.token);*/
+
       	this.props.history.push({
             pathname: '/search',
-            search: '?query='+q+'&token='+this.token
+            search: '?query='+q
       	});
 
       }
@@ -55,7 +67,7 @@ class SearchView extends Component {
 
       this.props.history.push({
             pathname: '/search',
-            search: '?query='+q+'&token='+this.token
+            search: '?query='+q
       })
   }
 
@@ -68,7 +80,7 @@ class SearchView extends Component {
       fetch(url, { 
           method: 'get', 
           headers: new Headers({
-              'Authorization': 'Bearer '+this.token, 
+              'Authorization': 'Bearer '+this.props.token, 
           }) 
       })
       .then(response => response.json())
@@ -81,7 +93,7 @@ class SearchView extends Component {
   	var artists = '';
 
   	if(items){
-      console.log(this.state.q);
+      //console.log(this.state.q);
   		artists = <div id="artists-container">
   					{items.map((item,index) =>
          				<Artist
@@ -90,7 +102,7 @@ class SearchView extends Component {
           					key={item.id}
           					id={item.id}
                     genres={item.genres.toString()}
-                    token={this.token}
+                    token={this.props.token}
 
                     query={this.state.query}
        		 		/>)}
@@ -119,7 +131,7 @@ class SearchView extends Component {
 
                     <nav aria-label="breadcrumb">
   						<ol className="breadcrumb">
-    						<li className="breadcrumb-item"><Link to={{ pathname: '/callback/', search: '#access_token='+this.token}}>Home</Link></li>
+    						<li className="breadcrumb-item"><Link to={{ pathname: '/callback/', search: '#access_token='+this.props.token}}>Home</Link></li>
     						<li className="breadcrumb-item active" aria-current="page">Search</li>
   						</ol>
 					</nav>
@@ -134,4 +146,10 @@ class SearchView extends Component {
   }
 }
 
-export default SearchView;
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  };
+};
+
+export default connect(mapStateToProps)(SearchView);

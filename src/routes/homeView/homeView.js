@@ -3,8 +3,9 @@ import logo from '../../assets/logo.svg';
 import './homeView.css';
 import search from '../../assets/search.svg';
 import FavTrack from './favTrack';
-//import axios from 'axios'
-//import {  withRouter } from 'react-router-dom';
+import store from '../../store.js';
+import { setToken } from '../../actionCreators.js';
+import { connect } from 'react-redux';
 
 class HomeView extends Component {
 	constructor (props) {
@@ -18,6 +19,10 @@ class HomeView extends Component {
 
       this.favs = null;
 
+      this.state = {
+        data : [],
+      }
+
       //console.log(props.location.pathname);
 
       const queryString = require('query-string');
@@ -26,14 +31,17 @@ class HomeView extends Component {
       console.log(parsed);
 
       this.token = parsed.access_token;
-      this.state = {
-        data : [],
-      }
+
+      store.dispatch(setToken(this.token));
+
+      /*store.subscribe(() => {
+        this.setState({
+          token: store.getState().token
+        })
+      });*/
 
       this.processFavs();
 
-      //console.log(Object.keys(localStorage));
-      
   	}
 
     handleClick(e){
@@ -51,7 +59,7 @@ class HomeView extends Component {
 
       this.props.history.push({
             pathname: '/search',
-            search: '?query='+q+'&token='+this.token
+            search: '?query='+q
       })
     }
 
@@ -131,4 +139,10 @@ class HomeView extends Component {
     }
 }
 
-export default HomeView;
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  };
+};
+
+export default connect(mapStateToProps)(HomeView);

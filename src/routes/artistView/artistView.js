@@ -4,13 +4,14 @@ import logo from '../../assets/logo.svg';
 import { Link } from 'react-router-dom';
 import './artistView.css';
 import Album from './album';
+import { connect } from 'react-redux';
 
 class ArtistView extends React.Component {
   constructor(props){
   	super();
 
 
-    this.token = props.location.state.token;
+    //this.token = props.location.state.token;
 
 		this.state = {
 			name: props.location.state.name,
@@ -26,10 +27,16 @@ class ArtistView extends React.Component {
       dropClass: 'not-show',
 		}
 
-    console.log(this.state.query);
+    //console.log(this.state.query);
 
-    this.getAlbums(props.location.state.id,props.location.state.token);
+    //this.getAlbums(props.location.state.id,props.location.state.token);
 	}
+
+  componentDidMount(){
+    //console.log(this.props.token);
+    this.getAlbums(this.state.id,this.props.token);
+  }
+
   handleClick(e){
       var sb = this.refs.searchbox;
       this.performSearch(sb.value);
@@ -47,13 +54,13 @@ class ArtistView extends React.Component {
   }
   performSearch(str){
 
-    console.log(this.state.token);
+    //console.log(this.state.token);
 
       let q = str.replace(" ","%20");
 
       this.props.history.push({
             pathname: '/search',
-            search: '?query='+q+'&token='+this.token
+            search: '?query='+q
       })
 
     }
@@ -142,8 +149,8 @@ class ArtistView extends React.Component {
 
                     <nav aria-label="breadcrumb">
                       <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><Link to={{ pathname: '/callback', hash: '#access_token='+this.token}}>Home</Link></li>
-                        <li className="breadcrumb-item"><Link to={{ pathname: '/search', search: '?query='+this.state.query+'&token='+this.token }}>Search</Link></li>
+                        <li className="breadcrumb-item"><Link to={{ pathname: '/callback', hash: '#access_token='+this.props.token}}>Home</Link></li>
+                        <li className="breadcrumb-item"><Link to={{ pathname: '/search', search: '?query='+this.state.query }}>Search</Link></li>
                         <li className="breadcrumb-item active" aria-current="page">{this.state.name}</li>
                       </ol>
                     </nav>
@@ -155,7 +162,7 @@ class ArtistView extends React.Component {
                                     release_date={item.release_date}
                                     key={item.id}
                                     id={item.id}
-                                    token={this.token}
+                                    token={this.props.token}
                                     artist={this.state.name}
 
                                     a_id={this.state.id}
@@ -175,5 +182,10 @@ class ArtistView extends React.Component {
     )
   }
 }
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  };
+};
 
-export default ArtistView
+export default connect(mapStateToProps)(ArtistView);
