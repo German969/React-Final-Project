@@ -15,11 +15,7 @@ class Album extends Component {
       a_id: props.a_id,
       a_logo: props.a_logo,
       a_genres: props.a_genres,
-
-
-      query: props.query,
   	}   
-    //this.token = props.token;
   }
 
   render(){
@@ -36,8 +32,6 @@ class Album extends Component {
                                                 a_id:this.state.a_id,
                                                 a_logo:this.state.a_logo,
                                                 a_genres:this.state.a_genres,
-
-                                                query:this.state.query, 
                                                 } }}>
 	   <div className="card flex-row flex-wrap" style={{maxWidth: '30rem', display: 'inline-block', margin: '5px', width: '100%'}} >
         <div className="card-header border-0" style={{display: 'inline-block'}} >

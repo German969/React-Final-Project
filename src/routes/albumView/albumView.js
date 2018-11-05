@@ -24,7 +24,7 @@ class AlbumView extends React.Component {
     a_logo: props.location.state.a_logo,
     a_genres: props.location.state.a_genres,
 
-    query: props.location.state.query,
+    //query: props.location.state.query,
 
     dropClass: 'not-show',
 
@@ -155,8 +155,8 @@ class AlbumView extends React.Component {
                     <nav aria-label="breadcrumb">
                       <ol className="breadcrumb">
                         <li className="breadcrumb-item"><Link to={{ pathname: '/callback', hash: 'access_token='+this.props.token}}>Home</Link></li>
-                        <li className="breadcrumb-item"><Link to={{ pathname: '/search', search: '?query='+this.state.query }}>Search</Link></li>
-                        <li className="breadcrumb-item"><Link to={{ pathname: '/artist', state: { name: this.state.artist, id: this.state.a_id, logo:this.state.a_logo, genres: this.state.a_genres, query:this.state.query } }}>{this.state.artist}</Link></li>
+                        <li className="breadcrumb-item"><Link to={{ pathname: '/search', search: '?query='+this.props.query }}>Search</Link></li>
+                        <li className="breadcrumb-item"><Link to={{ pathname: '/artist', state: { name: this.state.artist, id: this.state.a_id, logo:this.state.a_logo, genres: this.state.a_genres } }}>{this.state.artist}</Link></li>
                         <li className="breadcrumb-item active" aria-current="page">{this.state.name}</li>
                       </ol>
                     </nav>
@@ -198,7 +198,8 @@ class AlbumView extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    token: state.token
+    token: state.token,
+    query: state.query
   };
 };
 

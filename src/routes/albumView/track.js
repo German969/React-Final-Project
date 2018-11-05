@@ -12,10 +12,6 @@ class Track extends React.Component {
 
       className: 'far fa-star star-icon',
   	}
-
-    //console.log(this.state.preview);
-
-    //console.log(localStorage.getItem('1Y4HsZWu66hsDxGrOVgJqa'));
   }
   addFav(e){
     let newState = '';

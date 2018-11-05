@@ -10,15 +10,13 @@ class Artist extends Component {
   		id: props.id,
       genres: props.genres,
 
-      query: props.query,
   	}   
-    //this.token = props.token;
   }
 
   render(){
     return(
 
-    <Link to={{ pathname: '/artist', state: { name: this.state.name, id: this.state.id, logo:this.state.logo, genres: this.state.genres, query:this.state.query } }}>
+    <Link to={{ pathname: '/artist', state: { name: this.state.name, id: this.state.id, logo:this.state.logo, genres: this.state.genres } }}>
 	<div className="card flex-row flex-wrap" style={{maxWidth: '30rem', display: 'inline-block', margin: '5px', width: '100%'}} >
         <div className="card-header border-0" style={{display: 'inline-block'}} >
             <img src={this.state.logo} alt="Artist" style={{width: '5rem'}} />

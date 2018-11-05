@@ -4,6 +4,8 @@ import search from '../../assets/search.svg';
 import Artist from './artist';
 import { Link } from 'react-router-dom'
 import './searchView.css';
+import store from '../../store.js';
+import { setQuery } from '../../actionCreators.js';
 import { connect } from 'react-redux';
 
 
@@ -13,13 +15,9 @@ class SearchView extends Component {
   	const queryString = require('query-string');
     let parsed = queryString.parse(props.location.search);
 
- 	  //console.log(parsed);
-
     let q = parsed.query;
 
-    //console.log(q);
-
-    //this.token = parsed.token;
+    store.dispatch(setQuery(q));
 
     this.state = {
         query : q,
@@ -30,25 +28,16 @@ class SearchView extends Component {
   }
 
   componentDidMount(){
-    //console.log('props.token');
-    //console.log(this.props.token);
-
     this.performSearch2(this.state.query);
   }
 
   handleEnter(e){
   	if(e.key === 'Enter'){
-  		  //console.log(e.target.value);
         this.performSearch2(e.target.value);
 
         var str = e.target.value;
 
         let q = str.replace(" ","%20");
-
-        /*console.log('props.token');
-        console.log(this.props.token);
-        console.log('this.token');
-        console.log(this.token);*/
 
       	this.props.history.push({
             pathname: '/search',
@@ -103,7 +92,6 @@ class SearchView extends Component {
           					id={item.id}
                     genres={item.genres.toString()}
 
-                    query={this.state.query}
        		 		/>)}
   				</div>;
   	};
@@ -147,7 +135,8 @@ class SearchView extends Component {
 
 const mapStateToProps = state => {
   return {
-    token: state.token
+    token: state.token,
+    query: state.query
   };
 };
 

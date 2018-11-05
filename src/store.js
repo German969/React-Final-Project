@@ -3,15 +3,18 @@ import { createStore } from 'redux';
 const reducer = (state,action) => {
 
 	if (action.type == 'TOKEN') {
-		console.log('guardando token');
-		console.log(action.token);
 		return {
 			...state,
 			token: action.token
 		};
+	} else if (action.type == 'QUERY') {
+		return {
+			...state,
+			query: action.query
+		}
 	}
 
 	return state;
 }
 
-export default createStore(reducer, { token: null });
+export default createStore(reducer, { token: null, query: null });

@@ -5,4 +5,11 @@ const setToken = token => {
       }
 };
 
-export { setToken };
+const setQuery = query => {
+	return {
+		type: 'QUERY',
+		query: query
+	}
+}
+
+export { setToken, setQuery };

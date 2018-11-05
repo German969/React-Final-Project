@@ -10,9 +10,6 @@ class ArtistView extends React.Component {
   constructor(props){
   	super();
 
-
-    //this.token = props.location.state.token;
-
 		this.state = {
 			name: props.location.state.name,
 			id: props.location.state.id,
@@ -20,20 +17,12 @@ class ArtistView extends React.Component {
       genres: props.location.state.genres,
       data: null,
 
-      query: props.location.state.query,
-
-      //token: props.location.state.token,
-
       dropClass: 'not-show',
 		}
 
-    //console.log(this.state.query);
-
-    //this.getAlbums(props.location.state.id,props.location.state.token);
 	}
 
   componentDidMount(){
-    //console.log(this.props.token);
     this.getAlbums(this.state.id,this.props.token);
   }
 
@@ -53,8 +42,6 @@ class ArtistView extends React.Component {
     this.performSearch(e.target.value);
   }
   performSearch(str){
-
-    //console.log(this.state.token);
 
       let q = str.replace(" ","%20");
 
@@ -150,7 +137,7 @@ class ArtistView extends React.Component {
                     <nav aria-label="breadcrumb">
                       <ol className="breadcrumb">
                         <li className="breadcrumb-item"><Link to={{ pathname: '/callback', hash: '#access_token='+this.props.token}}>Home</Link></li>
-                        <li className="breadcrumb-item"><Link to={{ pathname: '/search', search: '?query='+this.state.query }}>Search</Link></li>
+                        <li className="breadcrumb-item"><Link to={{ pathname: '/search', search: '?query='+this.props.query }}>Search</Link></li>
                         <li className="breadcrumb-item active" aria-current="page">{this.state.name}</li>
                       </ol>
                     </nav>
@@ -167,8 +154,6 @@ class ArtistView extends React.Component {
                                     a_id={this.state.id}
                                     a_logo={this.state.logo}
                                     a_genres={this.state.genres}
-
-                                    query={this.state.query}
                                   />
                               )
                     }
@@ -184,7 +169,8 @@ class ArtistView extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    token: state.token
+    token: state.token,
+    query: state.query
   };
 };
 
